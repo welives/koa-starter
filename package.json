@@ -4,11 +4,11 @@
   "description": "a simple starter koa typescript template",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "set NODE_ENV=development && nodemon",
+    "dev": "nodemon",
     "clear": "rimraf dist/*",
     "build": "npm run clear && tsc",
     "start": "node_modules\\.bin\\pm2 start --env production",
-    "stop": " node_modules\\.bin\\pm2 stop all"
+    "stop": "node_modules\\.bin\\pm2 stop all"
   },
   "keywords": [
     "koa",
@@ -28,6 +28,7 @@
     "@types/node": "^20.8.3",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "dotenv": "^16.3.1",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

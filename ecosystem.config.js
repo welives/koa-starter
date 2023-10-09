@@ -14,12 +14,10 @@ module.exports = {
       // 开发环境变量
       env: {
         NODE_ENV: 'development',
-        PORT: 3000,
       },
       // 生产环境变量
       env_production: {
         NODE_ENV: 'production',
-        PORT: 8080,
       },
     },
   ],
