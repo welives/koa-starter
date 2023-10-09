@@ -1,0 +1,41 @@
+{
+  "name": "ts-koa-starter",
+  "version": "1.0.0",
+  "description": "a simple starter koa typescript template",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development && nodemon",
+    "clear": "rimraf dist/*",
+    "build": "npm run clear && tsc",
+    "start": "node_modules\\.bin\\pm2 start --env production",
+    "stop": " node_modules\\.bin\\pm2 stop all"
+  },
+  "keywords": [
+    "koa",
+    "typescript"
+  ],
+  "author": "welives",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.9",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-router": "^7.4.5",
+    "@types/node": "^20.8.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "nodemon": "^3.0.1",
+    "pm2": "^5.3.0",
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2"
+  }
+}
