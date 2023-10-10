@@ -2,6 +2,39 @@
 
 这个工程的搭建笔记可以在这里[查看](https://welives.github.io/blog/front-end/nodejs/%E6%90%AD%E5%BB%BAkoa%E5%B7%A5%E7%A8%8B.html)
 
+## ts-koa-starter
+
+这是一个`Koa2 + TypeScript + PM2 + ESLint + Prettier`的起手式(简单的模板项目)
+
+如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`use-typeorm`分支
+
+## 目录结构
+
+```
+.
+├─ src
+│  ├─ config                    # 配置文件目录
+│  │  └─ db.ts
+│  ├─ core                      # 业务核心目录
+│  │  ├─ controllers            # 控制器层
+│  │  │  └─ user.controller.ts
+│  │  ├─ entities               # 模型层
+│  │  │  └─ user.entity.ts
+│  │  ├─ services               # 服务层
+│  │  │  └─ user.service.ts
+│  │  ├─ router                 # 路由
+│  │  │  ├─ v1                  # 路由版本
+│  │  │  │  └─ index.ts
+│  │  │  └─ index.ts
+│  ├─ utils                     # 工具类
+│  │  └─ load-env.ts
+│  └─ index.ts                  # 入口文件
+├─ example.env                  # 环境变量模板
+├─ nodemon.json                 # nodemon 配置
+├─ ecosystem.config.js          # PM2 配置
+├─ tsconfig.json
+```
+
 ## 使用
 
 - `yarn` 或 `npm i`
