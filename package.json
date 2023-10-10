@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "clear": "rimraf dist/*",
-    "build": "npm run clear && tsc",
+    "build": "npm run clear && tsc && tsc-alias",
     "start": "node_modules\\.bin\\pm2 start --env production",
     "stop": "node_modules\\.bin\\pm2 stop all"
   },
@@ -36,6 +36,7 @@
     "pm2": "^5.3.0",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
