@@ -6,7 +6,7 @@
 
 这是一个`Koa2 + TypeScript + PM2 + ESLint + Prettier`的起手式(简单的模板项目)
 
-如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`use-typeorm`分支
+如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`use-typeorm-mysql`分支
 
 ## 目录结构
 
@@ -22,12 +22,11 @@
 │  │  │  └─ user.entity.ts
 │  │  ├─ services               # 服务层
 │  │  │  └─ user.service.ts
-│  │  ├─ router                 # 路由
+│  │  ├─ routes                 # 路由
 │  │  │  ├─ v1                  # 路由版本
 │  │  │  │  └─ index.ts
 │  │  │  └─ index.ts
-│  ├─ utils                     # 工具类
-│  │  └─ load-env.ts
+│  ├─ app.ts                    # koa 实例
 │  └─ index.ts                  # 入口文件
 ├─ example.env                  # 环境变量模板
 ├─ nodemon.json                 # nodemon 配置
@@ -51,7 +50,7 @@
 
 - 生产环境使用 pm2 启动，可以达到负载均衡。执行：`yarn start` 或 `npm run start` （生产环境端口默认：8080）
 
-## 友情链接
+## 相关文档
 
 - [Koa2](https://koa.nodejs.cn/)
 - [TypeScript](https://www.tslang.cn/)

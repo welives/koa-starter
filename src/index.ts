@@ -1,11 +1,6 @@
-import './utils/load-env'
-import Koa from 'koa'
-import router from './core/routes'
-const app = new Koa()
-
-app.use(router.routes()).use(router.allowedMethods())
-app.use(async (ctx, next) => {
-  ctx.body = 'Hello World'
+import 'dotenv/config'
+import app from './app'
+const PORT = process.env.APP_PORT || 3000
+app.listen(PORT, () => {
+  console.info('Server listening on port: ' + PORT)
 })
-
-app.listen(process.env.APP_PORT || 3000)

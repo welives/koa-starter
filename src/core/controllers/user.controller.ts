@@ -2,7 +2,6 @@ import { Context } from 'koa'
 
 export default class UserController {
   public static async getUser(ctx: Context) {
-    // 获取用户信息
     ctx.body = {
       code: 200,
       message: '获取用户信息成功',

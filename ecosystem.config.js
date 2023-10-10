@@ -11,12 +11,8 @@ module.exports = {
       max_memory_restart: '1G', // 超过指定的内存量，应用程序将重新启动
       autorestart: true, // 自动重启
       watch: true, // 启用监视和重启功能
-      // 开发环境变量
+      // 环境变量
       env: {
-        NODE_ENV: 'development',
-      },
-      // 生产环境变量
-      env_production: {
         NODE_ENV: 'production',
       },
     },
