@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "clear": "rimraf dist/*",
-    "build": "npm run clear && tsc && tsc-alias",
+    "build": "npm run clear && cp .env.production dist/.env.production && tsc && tsc-alias",
     "start": "node_modules\\.bin\\pm2 start --env production",
     "stop": "node_modules\\.bin\\pm2 stop all"
   },

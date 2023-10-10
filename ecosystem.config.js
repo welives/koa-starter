@@ -5,7 +5,7 @@ module.exports = {
   apps: [
     {
       name, // 应用程序名称
-      cwd: './', // 启动应用程序的目录
+      cwd: './dist', // 启动应用程序的目录
       script: path.resolve(__dirname, './dist/index.js'), // 启动脚本路径
       instances: require('os').cpus().length, // 要启动的应用实例数量
       max_memory_restart: '1G', // 超过指定的内存量，应用程序将重新启动
