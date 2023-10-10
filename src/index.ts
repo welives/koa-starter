@@ -1,8 +1,9 @@
 import './utils/load-env'
 import Koa from 'koa'
-
+import router from './core/router'
 const app = new Koa()
 
+app.use(router.routes()).use(router.allowedMethods())
 app.use(async (ctx, next) => {
   ctx.body = 'Hello World'
 })
