@@ -8,6 +8,8 @@
 
 如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`use-typeorm-mysql`分支
 
+如果想用`mongoose`来玩玩数据库，请 clone 下来后切换到`use-mongoose`分支
+
 ## 目录结构
 
 ```
@@ -18,8 +20,8 @@
 │  ├─ core                      # 业务核心目录
 │  │  ├─ controllers            # 控制器层
 │  │  │  └─ user.controller.ts
-│  │  ├─ entities               # 模型层
-│  │  │  └─ user.entity.ts
+│  │  ├─ models                 # 模型层
+│  │  │  └─ user.model.ts
 │  │  ├─ services               # 服务层
 │  │  │  └─ user.service.ts
 │  │  ├─ routes                 # 路由

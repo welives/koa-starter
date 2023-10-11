@@ -6,4 +6,5 @@ dist
 *.code-workspace
 **/*.log
 *lock.json
+*.lock
 .env*

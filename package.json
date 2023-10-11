@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "clear": "rimraf dist/*",
-    "build": "npm run clear && cp .env.production dist/.env && tsc && tsc-alias",
+    "build": "cross-env NODE_ENV=production npm run clear && cp .env.production dist/.env && tsc && tsc-alias",
+    "preview": "cross-env NODE_ENV=production node dist/index.js dotenv_config_path=dist/.env",
     "start": "node_modules\\.bin\\pm2 start",
     "stop": "node_modules\\.bin\\pm2 stop all"
   },
@@ -28,6 +29,7 @@
     "@types/node": "^20.8.3",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
