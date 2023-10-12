@@ -8,12 +8,21 @@
     "clear": "rimraf dist/*",
     "build": "cross-env NODE_ENV=production npm run clear && cp .env.production dist/.env && tsc && tsc-alias",
     "preview": "cross-env NODE_ENV=production node dist/index.js dotenv_config_path=dist/.env",
-    "start": "node_modules\\.bin\\pm2 start",
-    "stop": "node_modules\\.bin\\pm2 stop all"
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress",
+    "debug": "nodemon --exec node dist/index.js",
+    "webpack": "cross-env NODE_ENV=production webpack --progress && cp .env.production dist/.env",
+    "deploy": "pm2 start",
+    "deploy:stop": "pm2 stop all"
   },
   "keywords": [
     "koa",
-    "typescript"
+    "typescript",
+    "pm2",
+    "eslint",
+    "prettier",
+    "webpack",
+    "mongodb",
+    "mysql"
   ],
   "author": "welives",
   "license": "MIT",
@@ -37,9 +46,16 @@
     "nodemon": "^3.0.1",
     "pm2": "^5.3.0",
     "prettier": "^3.0.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.5.0",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }

@@ -35,24 +35,25 @@
 ├─ example.env                  # 环境变量模板
 ├─ nodemon.json                 # nodemon 配置
 ├─ ecosystem.config.js          # PM2 配置
+├─ webpack.config.js            # webpack 配置
 ├─ tsconfig.json
 ```
 
 ## 使用
 
-- `yarn` 或 `npm i`
+- `npm i`
 - `cp example.env .env`，然后修改环境变量
-- `yarn dev` 或 `npm run dev`
+- `npm run dev`
 - 在浏览器中开打`localhost:3000`
 
 ### 打包
 
 - `cp example.env .env.production`，然后修改环境变量
-- `yarn build` 或 `npm run build`
+- `npm run build` 或 `npm run webpack`
 
 ### 生产环境启动
 
-- 生产环境使用 pm2 启动，可以达到负载均衡。执行：`yarn start` 或 `npm run start` （生产环境端口默认：8080）
+- 生产环境使用 pm2 启动，可以达到负载均衡。执行：`npm run deploy` （生产环境端口默认：8080）
 
 ## 相关文档
 
@@ -61,3 +62,4 @@
 - [PM2](https://pm2.fenxianglu.cn/)
 - [ESLint](https://eslint.nodejs.cn/)
 - [Prettier](https://prettier.nodejs.cn/)
+- [Webpack](https://webpack.docschina.org/)

@@ -2,13 +2,14 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "~/*": ["./src/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "moduleResolution": "node",
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
