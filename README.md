@@ -1,14 +1,16 @@
 本人平常喜欢用`nodejs`瞎 JB 写写东西，但是每次都要创建项目、安装依赖等等前戏工作，这让我很烦。于是乎整了这个简单干净的工程模板，这样以后写东西直接 clone 下来就行了
 
-这个工程的搭建笔记可以在这里[查看](https://welives.github.io/blog/front-end/nodejs/%E6%90%AD%E5%BB%BAkoa%E5%B7%A5%E7%A8%8B.html)
+这个工程的搭建笔记可以在这里[查看](https://welives.github.io/blog/front-end/nodejs/koa/%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE.html)
 
 ## ts-koa-starter
 
-这是一个`Koa2 + TypeScript + PM2 + ESLint + Prettier`的起手式(简单的模板项目)
+这是一个`Koa2 + TypeScript + PM2 + ESLint + Prettier`的起手式
 
-如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`use-typeorm-mysql`分支
+`main`分支是一个不包含数据库的极简模板
 
-如果想用`mongoose`来玩玩数据库，请 clone 下来后切换到`use-mongoose`分支
+如果你想使用`MySQL`作为数据库的话，可以选择`use-typeorm-mysql`或`use-prisma-mysql`分支
+
+如果你想使用`MongoDB`作为数据库的话，可以选择`use-mongoose`、`use-typeorm-mongodb`或`use-prisma-mongodb`分支
 
 ## 目录结构
 
