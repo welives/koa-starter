@@ -1,19 +1,7 @@
 {
-  "name": "ts-koa-starter",
+  "name": "koa-starter",
   "version": "1.0.0",
-  "description": "a simple starter koa typescript template",
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "nodemon",
-    "clear": "rimraf dist/*",
-    "build": "cross-env NODE_ENV=production npm run clear && cp .env.production dist/.env && tsc && tsc-alias",
-    "preview": "cross-env NODE_ENV=production node dist/index.js dotenv_config_path=dist/.env",
-    "watch": "cross-env NODE_ENV=development webpack --watch --progress",
-    "debug": "nodemon --exec node dist/index.js",
-    "webpack": "cross-env NODE_ENV=production webpack --progress && cp .env.production dist/.env",
-    "deploy": "pm2 start",
-    "deploy:stop": "pm2 stop all"
-  },
+  "description": "一个Koa2 + TypeScript + PM2 + ESLint + Prettier 的基础项目",
   "keywords": [
     "koa",
     "typescript",
@@ -26,6 +14,18 @@
   ],
   "author": "welives",
   "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "clear": "rimraf dist/*",
+    "build": "cross-env NODE_ENV=production npm run clear && cp .env.production dist/.env && tsc && tsc-alias",
+    "preview": "cross-env NODE_ENV=production node dist/index.js dotenv_config_path=dist/.env",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress",
+    "debug": "nodemon --exec node dist/index.js",
+    "webpack": "cross-env NODE_ENV=production webpack --progress && cp .env.production dist/.env",
+    "deploy": "pm2 start",
+    "deploy:stop": "pm2 stop all"
+  },
   "dependencies": {
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.1",
