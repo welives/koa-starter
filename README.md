@@ -8,9 +8,9 @@
 
 `main`分支是一个不包含数据库的极简模板
 
-如果你想使用`MySQL`作为数据库的话，可以选择`use-typeorm-mysql`或`use-prisma-mysql`分支
+如果你想使用`MySQL`作为数据库的话，可以选择`typeorm-mysql`或`prisma-mysql`分支
 
-如果你想使用`MongoDB`作为数据库的话，可以选择`use-mongoose`、`use-typeorm-mongodb`或`use-prisma-mongodb`分支
+如果你想使用`MongoDB`作为数据库的话，可以选择`mongoose`、`typeorm-mongodb`或`prisma-mongodb`分支
 
 ## 目录结构
 
@@ -19,41 +19,52 @@
 ├─ src
 │  ├─ config                    # 配置文件目录
 │  │  └─ db.ts
-│  ├─ core                      # 业务核心目录
-│  │  ├─ controllers            # 控制器层
-│  │  │  └─ user.controller.ts
-│  │  ├─ models                 # 模型层
-│  │  │  └─ user.model.ts
-│  │  ├─ services               # 服务层
-│  │  │  └─ user.service.ts
-│  │  ├─ routes                 # 路由
-│  │  │  ├─ v1                  # 路由版本
-│  │  │  │  └─ index.ts
+│  ├─ controllers               # 控制器层
+│  │  └─ user.controller.ts
+│  ├─ models                    # 模型层
+│  │  └─ user.entity.ts
+│  ├─ services                  # 服务层
+│  │  └─ user.service.ts
+│  ├─ routes                    # 路由
+│  │  ├─ v1                     # 路由版本
 │  │  │  └─ index.ts
+│  │  └─ index.ts
 │  ├─ app.ts                    # koa 实例
 │  └─ index.ts                  # 入口文件
-├─ example.env                  # 环境变量模板
+├─ .env                         # 环境变量
 ├─ nodemon.json                 # nodemon 配置
 ├─ ecosystem.config.js          # PM2 配置
 ├─ webpack.config.js            # webpack 配置
 ├─ tsconfig.json
 ```
 
-## 使用
+## 安装
 
-- `npm i`
-- `cp example.env .env`，然后修改环境变量
-- `npm run dev`
-- 在浏览器中开打`localhost:3000`
+```sh
+pnpm install
+```
 
-### 打包
+## 开发环境
 
-- `cp example.env .env.production`，然后修改环境变量
-- `npm run build` 或 `npm run webpack`
+```sh
+pnpm run dev
+```
 
-### 生产环境启动
+## 打包
 
-- 生产环境使用 pm2 启动，可以达到负载均衡。执行：`npm run deploy` （生产环境端口默认：8080）
+```sh
+pnpm run build
+# or
+pnpm run webpack
+```
+
+## 部署
+
+生产环境使用`PM2`启动，可以达到负载均衡，生产环境端口默认：8080
+
+```sh
+pnpm run deploy
+```
 
 ## 相关文档
 
