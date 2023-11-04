@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
-import router from './core/routes'
+import router from './routes'
 const app = new Koa()
 app.use(bodyParser())
 
