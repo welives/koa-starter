@@ -1,4 +1,5 @@
 import { Context } from 'koa'
+import UserService from '../services/user.service'
 const singletonEnforcer = Symbol('UserController')
 class UserController {
   private static _instance: UserController
@@ -16,7 +17,7 @@ class UserController {
     ctx.body = {
       code: 200,
       message: '获取用户信息成功',
-      data: { name: 'jandan', email: '10000@qq.com' },
+      data: await UserService.getUser(),
     }
   }
 }
