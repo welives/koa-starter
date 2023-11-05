@@ -1,10 +1,10 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
-import router from './routes'
+import { V1Router } from './routes'
 const app = new Koa()
 app.use(bodyParser())
 
-app.use(router.routes()).use(router.allowedMethods())
+app.use(V1Router.routes()).use(V1Router.allowedMethods())
 app.use(async (ctx, next) => {
   ctx.body = 'Hello World'
 })
