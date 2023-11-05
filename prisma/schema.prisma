@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("MYSQL_URL")
+  relationMode = "prisma"
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user {
+  id       Int    @id @default(autoincrement()) @db.UnsignedInt
+  username String @db.VarChar(50)
+  password String @db.VarChar(100)
+  salt     String @db.VarChar(50)
+  avatar   String @default("") @db.VarChar(255)
+  role     Int    @default(0) @db.UnsignedTinyInt
+  status   Int    @default(0) @db.UnsignedTinyInt
+}
