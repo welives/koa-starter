@@ -22,7 +22,7 @@
 │  ├─ controllers               # 控制器层
 │  │  └─ user.controller.ts
 │  ├─ models                    # 模型层
-│  │  └─ user.model.ts
+│  │  └─ user.entity.ts
 │  ├─ services                  # 服务层
 │  │  └─ user.service.ts
 │  ├─ routes                    # 路由

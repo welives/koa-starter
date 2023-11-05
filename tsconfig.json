@@ -7,9 +7,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "moduleResolution": "node",
-    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "strictNullChecks": false,
