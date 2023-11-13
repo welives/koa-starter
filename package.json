@@ -1,16 +1,19 @@
 {
   "name": "koa-starter",
   "version": "1.0.0",
-  "description": "一个Koa2 + TypeScript + PM2 + ESLint + Prettier 的基础项目",
+  "description": "开箱即用的基于 Koa2 + TypeORM + PM2 + TypeScript 的模板",
   "keywords": [
-    "koa",
-    "typescript",
-    "pm2",
-    "eslint",
-    "prettier",
-    "webpack",
-    "mongodb",
-    "mysql"
+    "Koa2",
+    "TypeORM",
+    "Prisma",
+    "Mongoose",
+    "PM2",
+    "TypeScript",
+    "ESLint",
+    "Prettier",
+    "Webpack",
+    "MongoDB",
+    "MySQL"
   ],
   "author": "welives",
   "license": "MIT",

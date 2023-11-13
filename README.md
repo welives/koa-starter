@@ -4,7 +4,7 @@
 
 ## koa-starter
 
-这是一个`Koa2 + TypeScript + PM2 + ESLint + Prettier`的起手式
+这是一个开箱即用的基于 `Koa2` + `TypeORM` + `PM2` + `TypeScript` 的项目模板
 
 `main`分支是一个不包含数据库的极简模板
 
@@ -69,6 +69,9 @@ pnpm run deploy
 ## 相关文档
 
 - [Koa2](https://koa.nodejs.cn/)
+- [TypeORM](https://typeorm.nodejs.cn/)
+- [Prisma](https://prisma.nodejs.cn/)
+- [Mongoose](https://mongoose.nodejs.cn/)
 - [TypeScript](https://www.tslang.cn/)
 - [PM2](https://pm2.fenxianglu.cn/)
 - [ESLint](https://eslint.nodejs.cn/)
