@@ -7,7 +7,7 @@ import bodyParser from 'koa-bodyparser'
 import { unprotectedRouter, protectedRouter } from './routes'
 import catchError from './middlewares/exception'
 import verifyToken from './middlewares/auth'
-import { setupLogging } from './core/logger'
+import { setupLogging } from './utils/logger'
 import { cron } from './tasks'
 
 const app = new Koa()

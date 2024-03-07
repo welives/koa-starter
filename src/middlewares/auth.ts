@@ -1,6 +1,6 @@
 import { Context, Next } from 'koa'
 import jwt from 'jsonwebtoken'
-import { ForbiddenException, UnauthorizedException } from '../core/exception'
+import { ForbiddenException, UnauthorizedException } from '../utils/exception'
 const unless = require('koa-unless')
 
 export default function () {

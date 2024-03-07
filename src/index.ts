@@ -1,7 +1,7 @@
 import './env'
 import 'reflect-metadata'
 import app from './app'
-import { logger } from './core/logger'
+import { logger } from './utils/logger'
 const PORT = process.env.APP_PORT || 3000
 app.listen(PORT, () => {
   logger.info(`

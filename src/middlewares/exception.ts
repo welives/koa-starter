@@ -1,5 +1,5 @@
 import { BaseContext, Next } from 'koa'
-import { HttpException, AppException } from '../core/exception'
+import { HttpException, AppException } from '../utils/exception'
 
 interface ICatchError extends AppException {
   request?: string

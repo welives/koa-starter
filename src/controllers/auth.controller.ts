@@ -2,8 +2,14 @@ import { Context } from 'koa'
 import { request, summary, tagsAll } from 'koa-swagger-decorator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { AuthException, ForbiddenException, NotFoundException, Success, UnauthorizedException } from '../core/exception'
-import { genToken } from '../core/utils'
+import {
+  AuthException,
+  ForbiddenException,
+  NotFoundException,
+  Success,
+  UnauthorizedException,
+} from '../utils/exception'
+import { genToken } from '../utils/utils'
 
 @tagsAll(['Auth'])
 export default class AuthController {
