@@ -266,9 +266,10 @@ export default Utils.instance
 export function genToken(
   payload: any,
   secretType: 'ACCESS' | 'REFRESH' = 'ACCESS',
-  expiresIn: string | number | null = process.env.JWT_EXPIRED
+  expiresIn: string | number | null = process.env.JWT_EXPIRED ?? '30s'
 ) {
-  const secret = secretType === 'ACCESS' ? process.env.ACCESS_TOKEN_SECRET : process.env.REFRESH_TOKEN_SECRET
+  const secret =
+    secretType === 'ACCESS' ? process.env.ACCESS_TOKEN_SECRET ?? 'secret' : process.env.REFRESH_TOKEN_SECRET ?? 'secret'
   if (expiresIn === null || expiresIn === '') {
     return jwt.sign(payload, secret)
   }

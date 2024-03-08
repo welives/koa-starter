@@ -1,6 +1,6 @@
 import { Context, Next } from 'koa'
 import jwt from 'jsonwebtoken'
-import { ForbiddenException, UnauthorizedException } from '../utils/exception'
+import { HttpException } from '../utils/exception'
 const unless = require('koa-unless')
 
 export default function () {
@@ -8,14 +8,14 @@ export default function () {
     const authzHeader = ctx.request.header.authorization
     const accessToken = authzHeader && authzHeader.split(' ')[1]
     if (!accessToken) {
-      throw new UnauthorizedException({ msg: '缺少令牌' })
+      throw new HttpException('unauthorized')
     } else {
-      jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decode) => {
+      jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET ?? 'secret', (err, decode) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
-            throw new ForbiddenException({ msg: '令牌过期' })
+            throw new HttpException('expired_token', { msg: '令牌过期' })
           } else if (err.name === 'JsonWebTokenError') {
-            throw new ForbiddenException({ msg: '无效令牌' })
+            throw new HttpException('forbidden', { msg: '无效令牌' })
           }
         }
         ctx.state.user = decode

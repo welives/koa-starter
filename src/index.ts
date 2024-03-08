@@ -9,13 +9,13 @@ mongoose
   .connect(url)
   .then(() => {
     console.log('数据库连接成功')
-    const PORT = process.env.APP_PORT || 3000
+    const PORT = process.env.APP_PORT ?? 3000
     app.listen(PORT, () => {
       logger.info(`
       ------------
       Server Started!
       App is running in ${app.env} mode
-      Logging initialized at ${process.env.LOG_LEVEL} level
+      Logging initialized at ${process.env.LOG_LEVEL ?? 'debug'} level
 
       Http: http://localhost:${PORT}
 

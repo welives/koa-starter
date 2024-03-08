@@ -5,7 +5,7 @@ import helmet from 'koa-helmet'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import { unprotectedRouter, protectedRouter } from './routes'
-import catchError from './middlewares/exception'
+import catchError from './middlewares/error_handler'
 import verifyToken from './middlewares/auth'
 import { setupLogging } from './utils/logger'
 import { cron } from './tasks'
@@ -18,10 +18,7 @@ app
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
-        styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
-        fontSrc: ["'self'", 'fonts.gstatic.com'],
-        imgSrc: ["'self'", 'data:', 'online.swagger.io', 'validator.swagger.io'],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'unpkg.com'],
       },
     })
   )
@@ -35,7 +32,7 @@ app
   .use(unprotectedRouter.allowedMethods())
   .use(
     verifyToken().unless({
-      path: [/^\/api\/swagger-/, /^\/api\/signup/, /^\/api\/signin/, /^\/api\/token/, /^\/public/, /^\/favicon.ico/],
+      path: [/^\/public/, /^\/favicon.ico/, /^\/api\/swagger-/, /^\/api\/signup/, /^\/api\/signin/, /^\/api\/token/],
     })
   )
   .use(protectedRouter.routes())

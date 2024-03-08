@@ -1,11 +1,10 @@
-import path from 'node:path'
 import Router from 'koa-router'
-import { SwaggerRouter } from 'koa-swagger-decorator'
-import GeneralController from '../controllers/general.controller'
-import AuthController from '../controllers/auth.controller'
+import { SwaggerRouter, registry } from 'koa-swagger-decorator'
+import GeneralController from '../controllers/general.ctrl'
+import AuthController from '../controllers/auth.ctrl'
 
 const unprotectedRouter = new Router()
-unprotectedRouter.get('/', GeneralController.hello)
+unprotectedRouter.get('/', new GeneralController().hello)
 
 const protectedRouter = new SwaggerRouter({
   spec: {
@@ -15,21 +14,18 @@ const protectedRouter = new SwaggerRouter({
       version: '1.0.0',
     },
   },
-  prefix: '/api',
 })
-protectedRouter.swagger()
-// protectedRouter.swagger({
-//   title: 'koa-starter',
-//   description: 'API Doc',
-//   version: '1.0.0',
-//   prefix: '/api',
-// })
-// protectedRouter.mapDir(path.resolve(__dirname, '../'))
-
+// 开发环境才挂载swagger
+if (process.env.NODE_ENV === 'development') {
+  protectedRouter.swagger()
+}
 protectedRouter.prefix('/api')
-protectedRouter.post('/signup', AuthController.signUp)
-protectedRouter.post('/signin', AuthController.signIn)
-protectedRouter.post('/token', AuthController.token)
-protectedRouter.delete('/logout', AuthController.logout)
+// 用来指定token存放的位置和key名
+registry.registerComponent('securitySchemes', process.env.API_KEY ?? 'authorization', {
+  type: 'apiKey',
+  name: process.env.API_KEY ?? 'authorization',
+  in: 'header',
+})
+protectedRouter.applyRoute(AuthController)
 
 export { unprotectedRouter, protectedRouter }

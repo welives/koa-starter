@@ -1,8 +1,17 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
-import { UserDto } from '../dto/user'
+import dayjs from 'dayjs'
 
-type UserDocument = mongoose.Document & UserDto
+export interface User {
+  id: string
+  username: string
+  password: string
+  email: string
+  lock_token?: string
+  comparePassword(password: string): boolean
+}
+
+type UserDocument = mongoose.Document & User
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,14 +30,19 @@ const userSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
+    lock_token: {
+      type: String,
+      default: null,
+    },
+    createdAt: Number,
+    updatedAt: Number,
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: { currentTime: () => Date.now() } }
 )
 
 userSchema.pre('save', function (next) {
   if (!this.isModified('password')) return next()
   bcrypt.genSalt(10, (err, salt) => {
-    console.log(salt)
     if (err) return next(err)
     bcrypt.hash(this.password, salt, (err, hash) => {
       if (err) return next(err)
@@ -37,7 +51,12 @@ userSchema.pre('save', function (next) {
     })
   })
 })
-
+userSchema.virtual('gmt_created').get(function () {
+  return dayjs(this.createdAt).format('YYYY-MM-DD HH:mm:ss')
+})
+userSchema.virtual('gmt_updated').get(function () {
+  return dayjs(this.updatedAt).format('YYYY-MM-DD HH:mm:ss')
+})
 userSchema.methods.comparePassword = function (password: string) {
   return bcrypt.compareSync(password, this.password)
 }

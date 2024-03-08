@@ -20,7 +20,7 @@ function koaLogging() {
 }
 
 const options: winston.LoggerOptions = {
-  level: process.env.LOG_LEVEL,
+  level: process.env.LOG_LEVEL ?? 'debug',
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(winston.format.colorize(), winston.format.simple()),

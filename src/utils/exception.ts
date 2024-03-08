@@ -1,7 +1,6 @@
 import assert from 'assert'
 import Utils from './utils'
-
-export interface AppException {
+export interface AppError {
   // http状态码
   status?: number
   // 业务状态
@@ -14,14 +13,39 @@ export interface AppException {
   data?: any
 }
 
+export const ErrorType = {
+  unknowd: { status: 500, msg: '未知错误', code: 'E9999' },
+  http: { status: 400, msg: '请求出错', code: 'E0001' },
+  success: { status: 200, msg: 'ok', code: 'E0000' },
+  failed: { status: 400, msg: 'error', code: 'E0001' },
+  unauthorized: { status: 401, msg: '未授权', code: 'E0002' },
+  forbidden: { status: 403, msg: '禁止访问', code: 'E0003' },
+  not_found: { status: 404, msg: '资源未找到', code: 'E0004' },
+  auth_denied: { status: 400, msg: '身份验证失败', code: 'E0005' },
+  parameters: { status: 400, msg: '参数错误', code: 'E0006' },
+  expired_token: { status: 422, msg: '令牌过期', code: 'E0007' },
+  repeat: { status: 400, msg: '字段重复', code: 'E0008' },
+  method_not_allowed: { status: 405, msg: '请求方法不允许', code: 'E0009' },
+  file_large: { status: 413, msg: '文件体积过大', code: 'E0010' },
+  file_too_many: { status: 413, msg: '文件数量过多', code: 'E0011' },
+  file_extension: { status: 406, msg: '文件扩展名不符合规范', code: 'E0012' },
+  limit: { status: 400, msg: '请求过于频繁，请稍后再试', code: 'E0013' },
+}
+
+type ErrorTypes = keyof typeof ErrorType
+
 export class HttpException extends Error {
-  public status: number = 400
+  public status: number
+  public msg: string
+  public code: string
   public success: boolean = false
-  public msg: string = '请求错误'
-  public code: string = 'E0001'
   public data: any = null
-  constructor(ex?: AppException) {
+  constructor(type: ErrorTypes = 'http', ex?: AppError) {
     super()
+    const error = ErrorType[type]
+    this.status = error.status
+    this.msg = error.msg
+    this.code = error.code
     if (ex && ex.status) {
       assert(Utils.isNumber(ex.status))
       this.status = ex.status
@@ -38,12 +62,13 @@ export class HttpException extends Error {
 
 /** @description 请求成功 */
 export class Success extends HttpException {
-  public status: number = 200
-  public msg: string = 'ok'
-  public code: string = 'E0000'
-  constructor(ex?: AppException) {
+  constructor(ex?: AppError) {
     super()
+    const error = ErrorType.success
     this.success = true
+    this.status = error.status
+    this.msg = error.msg
+    this.code = error.code
     if (ex && ex.status) {
       assert(Utils.isNumber(ex.status))
       this.status = ex.status
@@ -63,285 +88,12 @@ export class Success extends HttpException {
 
 /** @description 请求失败 */
 export class Failed extends HttpException {
-  public msg: string = '请求失败'
-  constructor(ex?: AppException) {
+  constructor(ex?: AppError) {
     super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class UnauthorizedException extends HttpException {
-  public status: number = 401
-  public msg: string = '无效令牌'
-  public code: string = 'E0002'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class ForbiddenException extends HttpException {
-  public status: number = 403
-  public msg: string = '不可操作'
-  public code: string = 'E0003'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class NotFoundException extends HttpException {
-  public status: number = 404
-  public msg: string = '资源不存在'
-  public code: string = 'E0004'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class AuthException extends HttpException {
-  public msg: string = '校验失败'
-  public code: string = 'E0005'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class ParametersException extends HttpException {
-  public msg: string = '参数错误'
-  public code: string = 'E0006'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class ExpiredTokenException extends HttpException {
-  public status: number = 422
-  public msg: string = '令牌过期'
-  public code: string = 'E0007'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class UnknownException extends HttpException {
-  public status: number = 500
-  public msg: string = '未知错误'
-  public code: string = 'E9999'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class RepeatException extends HttpException {
-  public msg: string = '字段重复'
-  public code: string = 'E0008'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class MethodNotAllowed extends HttpException {
-  public status: number = 405
-  public msg: string = '请求方法不允许'
-  public code: string = 'E0009'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class RefreshTokenException extends HttpException {
-  public status: number = 401
-  public msg: string = '令牌刷新失败'
-  public code: string = 'E0010'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class FileLargeException extends HttpException {
-  public status: number = 413
-  public msg: string = '文件体积过大'
-  public code: string = 'E0011'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class FileTooManyException extends HttpException {
-  public status: number = 413
-  public msg: string = '文件数量过多'
-  public code: string = 'E0012'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class FileExtensionException extends HttpException {
-  public status: number = 406
-  public msg: string = '文件扩展名不符合规范'
-  public code: string = 'E0013'
-  constructor(ex?: AppException) {
-    super()
-    if (ex && ex.status) {
-      assert(Utils.isNumber(ex.status))
-      this.status = ex.status
-    }
-    if (ex && ex.msg) {
-      this.msg = ex.msg
-    }
-    if (ex && ex.code) {
-      assert(Utils.isString(ex.code))
-      this.code = ex.code
-    }
-  }
-}
-
-export class LimitException extends HttpException {
-  public msg: string = '请求过于频繁，请稍后再试'
-  public code: string = 'E0014'
-  constructor(ex?: AppException) {
-    super()
+    const error = ErrorType.failed
+    this.status = error.status
+    this.msg = error.msg
+    this.code = error.code
     if (ex && ex.status) {
       assert(Utils.isNumber(ex.status))
       this.status = ex.status
