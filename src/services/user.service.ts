@@ -1,22 +1,15 @@
-import { Context } from 'koa'
-import userModel from '../schemas/user.schema'
+import bcrypt from 'bcryptjs'
+import UserRepository from '../schemas/user.schema'
+import { BaseService } from './base.service'
+import { UserDto } from '../dto/user'
 
-const singletonEnforcer = Symbol('UserService')
-
-class UserService {
-  private static _instance: UserService
-  constructor(enforcer: any) {
-    if (enforcer !== singletonEnforcer) {
-      throw new Error('Cannot initialize single instance')
-    }
+class UserService extends BaseService<UserDto> {
+  Repository = UserRepository
+  async findByNameOrEmail(username: string, email: string): Promise<UserDto> {
+    return await this.Repository.findOne({ $or: [{ username }, { email }] })
   }
-  static get instance() {
-    this._instance || (this._instance = new UserService(singletonEnforcer))
-    return this._instance
-  }
-  async getUser(ctx?: Context) {
-    const users = await userModel.find({})
-    return users
+  comparePassword(password: string, hash: string) {
+    return bcrypt.compareSync(password, hash)
   }
 }
-export default UserService.instance
+export default new UserService()

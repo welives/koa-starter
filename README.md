@@ -6,7 +6,7 @@
 
 这是一个开箱即用的基于 `Koa2` + `TypeORM` + `PM2` + `TypeScript` 的项目模板
 
-`main`分支是一个不包含数据库的极简模板
+`main`分支是一个不包含数据库的模板
 
 如果你想使用`MySQL`作为数据库的话，可以选择`typeorm-mysql`或`prisma-mysql`分支
 
@@ -15,27 +15,31 @@
 ## 目录结构
 
 ```
-.
+├─ public
 ├─ src
-│  ├─ config                    # 配置文件目录
-│  │  └─ db.ts
 │  ├─ controllers               # 控制器层
-│  │  └─ user.controller.ts
-│  ├─ models                    # 模型层
-│  │  └─ user.entity.ts
-│  ├─ services                  # 服务层
-│  │  └─ user.service.ts
+│  │  ├─ general.controller.ts
+│  │  └─ ...
+│  ├─ middlewares               # 中间件
+│  │  └─ ...
 │  ├─ routes                    # 路由
-│  │  ├─ v1                     # 路由版本
-│  │  │  └─ index.ts
-│  │  └─ index.ts
+│  │  ├─ index.ts
+│  │  └─ ...
+│  ├─ tasks                     # 定时任务
+│  │  ├─ index.ts
+│  │  └─ ...
+│  ├─ utils                     # 助手函数
+│  │  ├─ utils.ts
+│  │  └─ ...
 │  ├─ app.ts                    # koa 实例
+│  ├─ env.ts
 │  └─ index.ts                  # 入口文件
 ├─ .env                         # 环境变量
 ├─ nodemon.json                 # nodemon 配置
 ├─ ecosystem.config.js          # PM2 配置
 ├─ webpack.config.js            # webpack 配置
 ├─ tsconfig.json
+├─ ...
 ```
 
 ## 安装
