@@ -18,18 +18,16 @@
 ├─ public
 ├─ src
 │  ├─ controllers               # 控制器层
-│  │  ├─ general.controller.ts
 │  │  └─ ...
 │  ├─ middlewares               # 中间件
 │  │  └─ ...
 │  ├─ routes                    # 路由
-│  │  ├─ index.ts
 │  │  └─ ...
 │  ├─ tasks                     # 定时任务
-│  │  ├─ index.ts
 │  │  └─ ...
-│  ├─ utils                     # 助手函数
-│  │  ├─ utils.ts
+│  ├─ utils                     # 工具函数
+│  │  └─ ...
+│  ├─ validators                # 接口参数校验
 │  │  └─ ...
 │  ├─ app.ts                    # koa 实例
 │  ├─ env.ts
