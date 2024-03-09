@@ -32,7 +32,10 @@ app
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'unpkg.com'],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+        styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
+        fontSrc: ["'self'", 'fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'online.swagger.io', 'validator.swagger.io'],
       },
     })
   )
@@ -46,7 +49,7 @@ app
   .use(unprotectedRouter.allowedMethods())
   .use(
     verifyToken().unless({
-      path: [/^\/public/, /^\/favicon.ico/, /^\/api\/swagger-/, /^\/api\/signin/, /^\/api\/token/],
+      path: [/^\/public/, /^\/favicon.ico/, /^(?!\/api)/, /^\/api\/swagger-/, /^\/api\/signin/, /^\/api\/token/],
     })
   )
   .use(protectedRouter.routes())

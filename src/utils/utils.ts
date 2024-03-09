@@ -1,4 +1,8 @@
+import { Next } from 'koa'
+import { Context } from 'koa-swagger-decorator'
+import { validate } from 'class-validator'
 import jwt from 'jsonwebtoken'
+import { Failed } from '../utils/exception'
 interface AnyObj {
   [key: string]: any
 }
@@ -41,8 +45,7 @@ class Utils {
   }
   static get instance() {
     // 如果已经存在实例则直接返回, 否则实例化后返回
-    this._instance || (this._instance = new Utils(singletonEnforcer))
-    return this._instance
+    return this._instance || (this._instance = new Utils(singletonEnforcer))
   }
 
   /** @description 是否为数组 */
@@ -274,4 +277,29 @@ export function genToken(
     return jwt.sign(payload, secret)
   }
   return jwt.sign(payload, secret, { expiresIn })
+}
+
+interface Type<T = any> extends Function {
+  new (...args: any[]): T
+}
+
+export function validator(DtoClass: Type) {
+  return async (ctx: Context, next: Next) => {
+    const params = { ...(ctx.request.body as object), ...ctx.request.query, ...ctx.params }
+    const dto = new DtoClass()
+    Object.assign(dto, params)
+    const errors = await validate(dto)
+    if (errors.length > 0) {
+      const errMsg = errors
+        .map((err) => {
+          const msg = Object.values(err.constraints)[0]
+          return msg
+        })
+        .join(';')
+      throw new Failed({ msg: errMsg })
+    } else {
+      ctx.dto = dto
+    }
+    await next()
+  }
 }
