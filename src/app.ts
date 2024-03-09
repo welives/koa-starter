@@ -4,6 +4,8 @@ import cors from '@koa/cors'
 import helmet from 'koa-helmet'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
+import Store from 'koa-redis'
+import session from 'koa-generic-session'
 import { unprotectedRouter, protectedRouter } from './routes'
 import catchError from './middlewares/error_handler'
 import verifyToken from './middlewares/auth'
@@ -12,6 +14,18 @@ import { cron } from './tasks'
 
 const app = new Koa()
 setupLogging(app)
+// 对session id进行加密用的盐
+app.keys = [process.env.SESSION_SECRET ?? 'secret']
+app.use(
+  session({
+    key: process.env.COOKIE_KEY ?? 'koa.sid', // cookie的key, 默认是 koa.sid
+    prefix: process.env.SESSION_PREFIX ?? 'koa:sess:', // session数据在redis中的key前缀, 默认是 koa:sess:
+    store: Store({
+      host: process.env.REDIS_HOST ?? 'localhost',
+      port: Number(process.env.REDIS_PORT) ?? 6379,
+    }) as any,
+  })
+)
 
 app
   .use(

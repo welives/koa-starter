@@ -21,9 +21,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 protectedRouter.prefix('/api')
 // 用来指定token存放的位置和key名
-registry.registerComponent('securitySchemes', process.env.API_KEY, {
+registry.registerComponent('securitySchemes', process.env.API_KEY ?? 'authorization', {
   type: 'apiKey',
-  name: process.env.API_KEY,
+  name: process.env.API_KEY ?? 'authorization',
   in: 'header',
 })
 protectedRouter.applyRoute(AuthController)

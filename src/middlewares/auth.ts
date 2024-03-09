@@ -10,7 +10,7 @@ export default function () {
     if (!accessToken) {
       throw new HttpException('unauthorized')
     } else {
-      jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decode) => {
+      jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET ?? 'secret', (err, decode) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
             throw new HttpException('expired_token', { msg: '令牌过期' })
