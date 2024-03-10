@@ -32,7 +32,10 @@ app
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", 'unpkg.com'],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+        styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', 'fonts.googleapis.com'],
+        fontSrc: ["'self'", 'fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'online.swagger.io', 'validator.swagger.io'],
       },
     })
   )

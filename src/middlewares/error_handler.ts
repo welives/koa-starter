@@ -1,5 +1,4 @@
 import { BaseContext, Next } from 'koa'
-import { z } from 'koa-swagger-decorator'
 import { HttpException, AppError } from '../utils/exception'
 interface ICatchError extends AppError {
   request?: string
@@ -8,14 +7,7 @@ interface ICatchError extends AppError {
 /** @description 错误处理中间件 */
 export default async (ctx: BaseContext, next: Next) => {
   try {
-    await next().catch((error) => {
-      if (error instanceof z.ZodError) {
-        throw new HttpException('parameters', {
-          msg: error.issues.map((issue) => issue.message).join(';'),
-        })
-      }
-      throw error
-    })
+    await next()
   } catch (error: any) {
     const isHttpException = error instanceof HttpException
     const isDev = process.env.NODE_ENV === 'development'
