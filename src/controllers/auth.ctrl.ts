@@ -109,3 +109,4 @@ export default class AuthController {
     throw new Success({ status: 204, msg: '退出成功' })
   }
 }
+export const authController = new AuthController()

@@ -1,12 +1,17 @@
 import { IRouterContext } from 'koa-router'
-import { routeConfig } from 'koa-swagger-decorator'
-import { redis } from '../utils/redis'
+import { routeConfig, z } from 'koa-swagger-decorator'
+import redis from '../utils/redis'
 export default class GeneralController {
   @routeConfig({
     method: 'get',
     path: '/',
     summary: '欢迎页',
     tags: ['General'],
+    request: {
+      query: z.object({
+        name: z.string().nullable().optional(),
+      }),
+    },
   })
   async hello(ctx: IRouterContext) {
     // 提取cookies中的session id
@@ -26,3 +31,4 @@ export default class GeneralController {
     ctx.body = `Hello ${ctx.session.name}, you check this ${ctx.session.viewCount} times`
   }
 }
+export const generalController = new GeneralController()

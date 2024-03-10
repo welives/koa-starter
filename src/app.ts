@@ -46,7 +46,7 @@ app
   .use(unprotectedRouter.allowedMethods())
   .use(
     verifyToken().unless({
-      path: [/^\/public/, /^\/favicon.ico/, /^\/api\/swagger-/, /^\/api\/signin/, /^\/api\/token/],
+      path: [/^\/public/, /^\/favicon.ico/, /^(?!\/api)/, /^\/api\/swagger-/, /^\/api\/signin/, /^\/api\/token/],
     })
   )
   .use(protectedRouter.routes())

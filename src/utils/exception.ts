@@ -15,21 +15,20 @@ export interface AppError {
 
 export const ErrorType = {
   unknowd: { status: 500, msg: '未知错误', code: 'E9999' },
-  http: { status: 400, msg: '请求出错', code: 'E0001' },
-  success: { status: 200, msg: 'ok', code: 'E0000' },
-  failed: { status: 400, msg: 'error', code: 'E0001' },
+  success: { status: 200, msg: 'ok', code: '00000' },
+  http: { status: 400, msg: '错误的请求', code: 'E0001' },
+  failed: { status: 400, msg: '错误的请求', code: 'E0001' },
   unauthorized: { status: 401, msg: '未授权', code: 'E0002' },
-  forbidden: { status: 403, msg: '禁止访问', code: 'E0003' },
-  not_found: { status: 404, msg: '资源未找到', code: 'E0004' },
+  forbidden: { status: 403, msg: '已禁止', code: 'E0003' },
+  not_found: { status: 404, msg: '未找到', code: 'E0004' },
   auth_denied: { status: 400, msg: '身份验证失败', code: 'E0005' },
   parameters: { status: 400, msg: '参数错误', code: 'E0006' },
-  expired_token: { status: 422, msg: '令牌过期', code: 'E0007' },
-  repeat: { status: 400, msg: '字段重复', code: 'E0008' },
-  method_not_allowed: { status: 405, msg: '请求方法不允许', code: 'E0009' },
-  file_large: { status: 413, msg: '文件体积过大', code: 'E0010' },
-  file_too_many: { status: 413, msg: '文件数量过多', code: 'E0011' },
-  file_extension: { status: 406, msg: '文件扩展名不符合规范', code: 'E0012' },
-  limit: { status: 400, msg: '请求过于频繁，请稍后再试', code: 'E0013' },
+  repeat: { status: 400, msg: '字段重复', code: 'E0007' },
+  method_not_allowed: { status: 405, msg: '方法不允许', code: 'E0008' },
+  file_large: { status: 413, msg: '文件体积过大', code: 'E0009' },
+  file_too_many: { status: 413, msg: '文件数量过多', code: 'E0010' },
+  file_extension: { status: 406, msg: '文件扩展名不符合规范', code: 'E0011' },
+  limit: { status: 400, msg: '请求过于频繁，请稍后再试', code: 'E0012' },
 }
 
 type ErrorTypes = keyof typeof ErrorType
