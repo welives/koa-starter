@@ -13,7 +13,7 @@ export default function () {
       jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET ?? 'secret', (err, decode) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
-            throw new HttpException('expired_token', { msg: '令牌过期' })
+            throw new HttpException('forbidden', { msg: '令牌过期' })
           } else if (err.name === 'JsonWebTokenError') {
             throw new HttpException('forbidden', { msg: '无效令牌' })
           }
