@@ -1,25 +1,14 @@
-import { SwaggerRouter, registry } from 'koa-swagger-decorator'
-import AuthController from '../controllers/auth.ctrl'
+import path from 'node:path'
+import { SwaggerRouter } from 'koa-swagger-decorator'
 
 const protectedRouter = new SwaggerRouter(
-  {
-    spec: {
-      info: {
-        title: 'koa-starter',
-        description: 'API Doc',
-        version: '1.0.0',
-      },
-    },
-  },
-  { prefix: '/api' }
+  { prefix: '/api' }, // RouterOptions
+  { title: 'koa-starter', description: 'API DOC', version: '1.0.0', prefix: '/api' } // SwaggerOptions
 )
-// 用来指定token存放的位置和key名
-registry.registerComponent('securitySchemes', process.env.API_KEY ?? 'authorization', {
-  type: 'apiKey',
-  name: process.env.API_KEY ?? 'authorization',
-  in: 'header',
-})
-protectedRouter.applyRoute(AuthController)
+
+// 扫描控制器模块并禁用内置的参数校验
+protectedRouter.mapDir(path.resolve(__dirname, '../controllers'), { doValidation: false })
+
 // 开发环境才挂载swagger
 if (process.env.NODE_ENV === 'development') {
   protectedRouter.swagger()
