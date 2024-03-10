@@ -1,9 +1,10 @@
-import { request, summary, tagsAll, body, middlewares, Context } from 'koa-swagger-decorator'
+import { request, summary, body, middlewares, tagsAll } from 'koa-swagger-decorator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { Success, HttpException } from '../utils/exception'
-import { genToken, validator } from '../utils/utils'
+import { genToken } from '../utils/utils'
 import redis from '../utils/redis'
+import validator, { ValidateContext } from '../middlewares/validator'
 import { SignInDto, TokenDto } from '../dto'
 
 @tagsAll(['Auth'])
@@ -20,7 +21,7 @@ export default class AuthController {
     username: { type: 'string', required: true, example: 'admin' },
     password: { type: 'string', required: true, example: '123456' },
   })
-  async signIn(ctx: Context) {
+  async signIn(ctx: ValidateContext) {
     // 1.检查用户是否存在
     if (ctx.dto.username !== this.username) {
       throw new HttpException('not_found', { msg: '用户不存在' })
@@ -46,7 +47,7 @@ export default class AuthController {
   @body({
     token: { type: 'string', required: true, example: 'asdasd' },
   })
-  async token(ctx: Context) {
+  async token(ctx: ValidateContext) {
     // 1.先检查前端是否有提交token
     if (!ctx.dto.token) {
       throw new HttpException('unauthorized')
@@ -81,7 +82,7 @@ export default class AuthController {
   @body({
     token: { type: 'string', required: true, example: 'asdasd' },
   })
-  async logout(ctx: Context) {
+  async logout(ctx: ValidateContext) {
     // 1.先检查前端是否有提交token
     if (!ctx.dto.token) {
       throw new HttpException('unauthorized')

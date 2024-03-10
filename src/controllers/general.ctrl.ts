@@ -1,12 +1,11 @@
 import { IRouterContext } from 'koa-router'
-import { request, summary, query, security, tagsAll } from 'koa-swagger-decorator'
+import { request, summary, query, tagsAll } from 'koa-swagger-decorator'
 import { redis } from '../utils/redis'
 
 @tagsAll(['General'])
 export default class GeneralController {
   @request('get', '')
   @summary('欢迎页')
-  @security([{ api_key: [] }])
   @query({
     name: { type: 'string', required: false, example: 'jandan' },
   })
