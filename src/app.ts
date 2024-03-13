@@ -7,9 +7,8 @@ import bodyParser from 'koa-bodyparser'
 import Store from 'koa-redis'
 import session from 'koa-generic-session'
 import { unprotectedRouter, protectedRouter } from './routes'
-import catchError from './middlewares/error_handler'
-import verifyToken from './middlewares/auth'
-import { setupLogging } from './utils/logger'
+import { verifyToken, catchError } from './middlewares'
+import { setupLogging } from './utils'
 import { cron } from './tasks'
 
 const app = new Koa()
@@ -46,7 +45,15 @@ app
   .use(unprotectedRouter.allowedMethods())
   .use(
     verifyToken().unless({
-      path: [/^\/public/, /^\/favicon.ico/, /^(?!\/api)/, /^\/api\/swagger-/, /^\/api\/signin/, /^\/api\/token/],
+      path: [
+        /^\/public/,
+        /^\/favicon.ico/,
+        /^(?!\/api)/,
+        /^\/api\/swagger-/,
+        /^\/api\/signup/,
+        /^\/api\/signin/,
+        /^\/api\/token/,
+      ],
     })
   )
   .use(protectedRouter.routes())

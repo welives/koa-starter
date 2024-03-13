@@ -1,6 +1,6 @@
 import { IRouterContext } from 'koa-router'
 import { routeConfig, z } from 'koa-swagger-decorator'
-import redis from '../utils/redis'
+import { Redis } from '../utils'
 export default class GeneralController {
   @routeConfig({
     method: 'get',
@@ -20,7 +20,7 @@ export default class GeneralController {
     // session prefix 拼接sid得到key
     const session_key = `${process.env.SESSION_PREFIX ?? 'koa:sess:'}${sid}`
     console.log('session_key', session_key)
-    const data = await redis.get(session_key)
+    const data = await Redis.get(session_key)
     console.log('data', data)
     ctx.session.name = ctx.request.query.name
     if (ctx.session.viewCount === null || ctx.session.viewCount === undefined) {
