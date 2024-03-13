@@ -1,7 +1,7 @@
 import { Next } from 'koa'
 import { Context } from 'koa-swagger-decorator'
 import { validate } from 'class-validator'
-import { Failed } from '../utils/exception'
+import { Failed } from '../utils'
 
 export interface ValidateContext extends Context {
   dto: any

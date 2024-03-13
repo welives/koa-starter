@@ -10,7 +10,7 @@
 
 如果你想使用`MySQL`作为数据库的话，可以选择`typeorm-mysql`或`prisma-mysql`分支
 
-如果你想使用`MongoDB`作为数据库的话，可以选择`mongoose`、`typeorm-mongodb`或`prisma-mongodb`分支
+如果你想使用`MongoDB`作为数据库的话，可以选择`mongoose`或`typeorm-mongodb`分支
 
 ## 目录结构
 
