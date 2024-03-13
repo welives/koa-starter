@@ -27,7 +27,7 @@ function loadEnv(envDir: string) {
       const filePath = path.join(envDir, file)
       if (!tryStatSync(filePath)?.isFile()) return []
       return Object.entries(parse(fs.readFileSync(filePath)))
-    }),
+    })
   )
   expand({ parsed })
   return parsed
