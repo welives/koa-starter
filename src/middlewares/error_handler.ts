@@ -1,11 +1,11 @@
 import { BaseContext, Next } from 'koa'
-import { HttpException, AppError } from '../utils/exception'
+import { HttpException, AppError } from '../utils'
 interface ICatchError extends AppError {
   request?: string
 }
 
 /** @description 错误处理中间件 */
-export default async (ctx: BaseContext, next: Next) => {
+export default async function (ctx: BaseContext, next: Next) {
   try {
     await next()
   } catch (error: any) {

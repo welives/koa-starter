@@ -2,7 +2,7 @@ import './env'
 import 'reflect-metadata'
 import app from './app'
 import mongoose from 'mongoose'
-import { logger } from './utils/logger'
+import { logger } from './utils'
 const url = process.env.MONGODB_URL as string
 
 mongoose

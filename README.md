@@ -10,7 +10,7 @@
 
 如果你想使用`MySQL`作为数据库的话，可以选择`typeorm-mysql`或`prisma-mysql`分支
 
-如果你想使用`MongoDB`作为数据库的话，可以选择`mongoose`、`typeorm-mongodb`或`prisma-mongodb`分支
+如果你想使用`MongoDB`作为数据库的话，可以选择`mongoose`或`typeorm-mongodb`分支
 
 ## 目录结构
 
@@ -18,6 +18,8 @@
 ├─ public
 ├─ src
 │  ├─ controllers               # 控制器层
+│  │  └─ ...
+│  ├─ dto                       # 接口参数校验
 │  │  └─ ...
 │  ├─ middlewares               # 中间件
 │  │  └─ ...
@@ -30,8 +32,6 @@
 │  ├─ tasks                     # 定时任务
 │  │  └─ ...
 │  ├─ utils                     # 工具函数
-│  │  └─ ...
-│  ├─ validators                # 接口参数校验
 │  │  └─ ...
 │  ├─ app.ts                    # koa 实例
 │  ├─ env.ts
