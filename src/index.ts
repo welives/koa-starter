@@ -1,17 +1,19 @@
 import './env'
-import prisma from './config/db'
+import 'reflect-metadata'
 import app from './app'
-const PORT = process.env.APP_PORT || 3000
-
+import { logger } from './utils'
+const PORT = process.env.APP_PORT ?? 3000
 app.listen(PORT, () => {
-  console.info('Server listening on port: ' + PORT)
-  prisma
-    .$connect()
-    .then(() => {
-      console.log('数据连接成功')
-    })
-    .catch((err) => {
-      console.error('数据连接失败')
-      process.exit(1)
-    })
+  logger.info(`
+  ------------
+  Server Started!
+  App is running in ${app.env} mode
+  Logging initialized at ${process.env.LOG_LEVEL ?? 'debug'} level
+
+  Http: http://localhost:${PORT}
+
+  API Docs: http://localhost:${PORT}/api/swagger-html
+  API Spec: http://localhost:${PORT}/api/swagger-json
+  ------------
+  `)
 })

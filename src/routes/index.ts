@@ -1,1 +1,2 @@
-export { default as V1Router } from './v1'
+export * from './unprotected'
+export * from './protected'

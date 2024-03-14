@@ -10,11 +10,11 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model user {
-  id       Int    @id @default(autoincrement()) @db.UnsignedInt
-  username String @db.VarChar(50)
-  password String @db.VarChar(100)
-  salt     String @db.VarChar(50)
-  avatar   String @default("") @db.VarChar(255)
-  role     Int    @default(0) @db.UnsignedTinyInt
-  status   Int    @default(0) @db.UnsignedTinyInt
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  username   String   @db.VarChar(255)
+  password   String   @db.VarChar(255)
+  email      String   @unique(map: "IDX_e12875dfb3b1d92d7d7c5377e2") @db.VarChar(255)
+  lock_token String?  @db.VarChar(255)
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime @default(now()) @db.Timestamp(6)
 }
