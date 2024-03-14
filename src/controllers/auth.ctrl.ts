@@ -1,9 +1,10 @@
 import { request, summary, body, middlewares, tagsAll } from 'koa-swagger-decorator'
 import jwt from 'jsonwebtoken'
-import { genToken, Redis, DBSource, Success, Failed, HttpException } from '../utils'
+import { genToken, Redis, Success, Failed, HttpException } from '../utils'
 import { ValidateContext, validator } from '../middlewares'
 import { SignUpDto, SignInDto, TokenDto } from '../dto'
 import { User } from '../entities/user.entity'
+import { db } from '../services/db.serv'
 
 @tagsAll(['Auth'])
 export default class AuthController {
@@ -16,7 +17,7 @@ export default class AuthController {
     email: { type: 'string', required: true, example: 'admin@example.com' },
   })
   async signUp(ctx: ValidateContext) {
-    const userRepository = DBSource.getRepository(User)
+    const userRepository = db.getRepository(User)
     // 1.检查邮箱是否已存在
     if (await userRepository.findOne({ where: { email: ctx.dto.email } })) {
       throw new Failed({ msg: '该邮箱已被注册' })
@@ -42,7 +43,7 @@ export default class AuthController {
     password: { type: 'string', required: true, example: '123456' },
   })
   async signIn(ctx: ValidateContext) {
-    const userRepository = DBSource.getRepository(User)
+    const userRepository = db.getRepository(User)
     const user = await userRepository.findOneBy({ username: ctx.dto.username })
     // 1.检查用户是否存在
     if (!user) {
